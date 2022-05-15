@@ -1,4 +1,5 @@
 import random
+from bokeh.plotting import figure, show#, output_file
 
 def tirar_dado(numero_de_tiros):
     secuencia_de_tiros = []
@@ -33,6 +34,22 @@ def reto(numero_de_tiros, numero_de_intentos):
         zip_secuencias = zip(secuencia_de_tiros_1, secuencia_de_tiros_2)
         secuencia_de_dos_dados = [tiro_1 + tiro_2 for (tiro_1, tiro_2) in zip_secuencias]
         tiros_de_dos_dados.append(secuencia_de_dos_dados)
+
+        #Gráfica de tiros dobles
+        if numero_de_intentos == 1:
+            fig = figure()
+            x_vals = range(1,13)
+            y_vals = []
+
+            for numero in x_vals:
+                repeticiones_de_numero = 0
+                for tiro_doble in secuencia_de_dos_dados:
+                    if numero == tiro_doble:
+                        repeticiones_de_numero += 1
+                y_vals.append(repeticiones_de_numero) 
+
+            fig.line(x_vals, y_vals, line_width = 2)
+            show(fig)
 
     tiros_con_12 = 0
     for tiro_doble in tiros_de_dos_dados:
